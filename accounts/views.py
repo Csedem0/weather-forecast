@@ -18,7 +18,7 @@ def weather_forecast(request):
             if response.status_code == 200:
                 weather_data = response.json()
             else:
-                error_message = "City not found or API request failed."
+                error_message = "City invalid or not found."
     else:
         form = CityForm()
 
