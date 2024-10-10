@@ -1,0 +1,25 @@
+<!-- booking/templates/login.html -->
+{% extends 'base.html' %} <!-- Extend base template -->
+
+{% block title %}Login{% endblock %} <!-- Set page title -->
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Login</h1>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn btn-black btn-lg">Login</button>
+        <p>Don't have an account? Register Here <a class="" style="color: black;" href="{% url 'register' %}">Customer</a> Or <a class="" style="color: black;" href="{% url 'register_owner' %}">Printing Press Owner</a></p>
+    </form>
+</div>
+{% endblock %}
