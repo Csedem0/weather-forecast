@@ -5,10 +5,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast</title>
+    <title>About Us - JER Weather</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .about-section {
+            padding: 50px 20px;
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .about-team {
+            background-color: #f7f7f7;
+            padding: 50px 20px;
+        }
+
+        .about-team h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
     <style>
         /* Global Styles */
         body {
@@ -163,40 +221,31 @@
         <a href="{% url 'contactus' %}">Contact Us</a>
     </div>
 
-    <!-- Main Weather Container -->
-    <div class="container">
-        <h2>Check Your Local Weather</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary btn-block">Get Weather</button>
-        </form>
+    <!-- About Section -->
+    <div class="about-section">
+        <h2>About JER Weather</h2>
+        <p>At JER Weather, our mission is to provide accurate and timely weather forecasts that help individuals, communities, and businesses stay safe and prepared for the ever-changing weather conditions. Our dedicated team of meteorologists uses the latest technology and research to deliver the most reliable weather updates for cities around the globe.</p>
+        <h2>Meet the Team</h2>
+    </div>
 
-        <!-- Weather Data Display -->
-        {% if weather_data %}
-            <div class="weather-result">
-                <h2>Weather in {{ weather_data.name }}</h2>
-                <p><strong>Temperature:</strong> {{ weather_data.main.temp }}°C</p>
-                <p><strong>Weather:</strong> {{ weather_data.weather.0.description }}</p>
-                <p><strong>Humidity:</strong> {{ weather_data.main.humidity }}%</p>
-                <p><strong>Wind Speed:</strong> {{ weather_data.wind.speed }} m/s</p>
+    <!-- Meet the Team Section -->
+    <div class="about-team">
+        <div class="team-members">
+            <div class="team-member">
+                <img src="{% static 'team2.jpeg' %}" alt="Team Member 1">
+                <h4>John Doe</h4>
+                <p>Chief Meteorologist</p>
             </div>
-        {% elif error_message %}
-            <p class="error-message">{{ error_message }}</p>
-        {% endif %}
-
-        <!-- Weather Map Image -->
-        <div class="weather-map">
-            <h3>Current Weather Map</h3>
-            <img src="{% static 'map.jpg' %}" alt="Current Weather Map">
-        </div>
-
-        <!-- Additional Weather Information -->
-        <div class="additional-info mt-4">
-            <h3>Additional Weather Information</h3>
-            <p>Stay informed with the latest updates on weather patterns and forecasts in your area.</p>
-            <p>Our dedicated meteorologists provide timely reports and alerts to keep you safe.</p>
-            <p>Check back frequently for updates on severe weather, including storms, hurricanes, and more.</p>
+            <div class="team-member">
+                <img src="{% static 'team2.jpeg' %}" alt="Team Member 2">
+                <h4>Jane Smith</h4>
+                <p>Weather Analyst</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'team2.jpeg' %}" alt="Team Member 3">
+                <h4>Michael Brown</h4>
+                <p>Senior Meteorologist</p>
+            </div>
         </div>
     </div>
 
@@ -217,8 +266,6 @@
         </div>
         <div class="footer-details">
             <p>&copy; 2024 JER Weather | All Rights Reserved</p>
-            <p>About Us | Careers | Press | Blog | FAQs</p>
-            <p>Stay updated with the latest weather news and forecasts.</p>
         </div>
     </div>
 
@@ -226,6 +273,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>

@@ -5,10 +5,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast</title>
+    <title>Contact Us - JER Weather</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .contact-section {
+            padding: 50px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form label {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .contact-form button {
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+        }
+
+        .contact-form button:hover {
+            background-color: #990000;
+        }
+    </style>
     <style>
         /* Global Styles */
         body {
@@ -163,40 +207,31 @@
         <a href="{% url 'contactus' %}">Contact Us</a>
     </div>
 
-    <!-- Main Weather Container -->
-    <div class="container">
-        <h2>Check Your Local Weather</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary btn-block">Get Weather</button>
-        </form>
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Have any questions, feedback, or inquiries? We'd love to hear from you! Reach out using the form below or get in touch via our social media channels.</p>
 
-        <!-- Weather Data Display -->
-        {% if weather_data %}
-            <div class="weather-result">
-                <h2>Weather in {{ weather_data.name }}</h2>
-                <p><strong>Temperature:</strong> {{ weather_data.main.temp }}°C</p>
-                <p><strong>Weather:</strong> {{ weather_data.weather.0.description }}</p>
-                <p><strong>Humidity:</strong> {{ weather_data.main.humidity }}%</p>
-                <p><strong>Wind Speed:</strong> {{ weather_data.wind.speed }} m/s</p>
-            </div>
-        {% elif error_message %}
-            <p class="error-message">{{ error_message }}</p>
-        {% endif %}
+        <div class="contact-form">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-        <!-- Weather Map Image -->
-        <div class="weather-map">
-            <h3>Current Weather Map</h3>
-            <img src="{% static 'map.jpg' %}" alt="Current Weather Map">
-        </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-        <!-- Additional Weather Information -->
-        <div class="additional-info mt-4">
-            <h3>Additional Weather Information</h3>
-            <p>Stay informed with the latest updates on weather patterns and forecasts in your area.</p>
-            <p>Our dedicated meteorologists provide timely reports and alerts to keep you safe.</p>
-            <p>Check back frequently for updates on severe weather, including storms, hurricanes, and more.</p>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </div>
 
@@ -217,8 +252,6 @@
         </div>
         <div class="footer-details">
             <p>&copy; 2024 JER Weather | All Rights Reserved</p>
-            <p>About Us | Careers | Press | Blog | FAQs</p>
-            <p>Stay updated with the latest weather news and forecasts.</p>
         </div>
     </div>
 
@@ -226,6 +259,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>

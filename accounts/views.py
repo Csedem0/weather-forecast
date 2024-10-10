@@ -23,3 +23,12 @@ def weather_forecast(request):
         form = CityForm()
 
     return render(request, 'weather/weather.html', {'form': form, 'weather_data': weather_data, 'error_message': error_message})
+
+def map(request):
+    return render(request, 'weather/map.html')
+
+def aboutus(request):
+    return render(request, 'weather/aboutus.html')
+
+def contactus(request):
+    return render(request, 'weather/contactus.html')

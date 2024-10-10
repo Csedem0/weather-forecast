@@ -5,10 +5,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast</title>
+    <title>World Map - JER Weather</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Leaflet.js for map rendering -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px; /* Map height */
+            width: 100%; /* Map should fill the screen */
+            margin-top: 20px;
+        }
+
+        .map-section {
+            padding: 20px;
+            background-color: #f7f7f7;
+            text-align: center;
+        }
+
+        .map-section h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* For responsiveness */
+        @media (max-width: 768px) {
+            #map {
+                height: 400px; /* Smaller height on mobile */
+            }
+        }
+    </style>
     <style>
         /* Global Styles */
         body {
@@ -163,41 +191,11 @@
         <a href="{% url 'contactus' %}">Contact Us</a>
     </div>
 
-    <!-- Main Weather Container -->
-    <div class="container">
-        <h2>Check Your Local Weather</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary btn-block">Get Weather</button>
-        </form>
-
-        <!-- Weather Data Display -->
-        {% if weather_data %}
-            <div class="weather-result">
-                <h2>Weather in {{ weather_data.name }}</h2>
-                <p><strong>Temperature:</strong> {{ weather_data.main.temp }}°C</p>
-                <p><strong>Weather:</strong> {{ weather_data.weather.0.description }}</p>
-                <p><strong>Humidity:</strong> {{ weather_data.main.humidity }}%</p>
-                <p><strong>Wind Speed:</strong> {{ weather_data.wind.speed }} m/s</p>
-            </div>
-        {% elif error_message %}
-            <p class="error-message">{{ error_message }}</p>
-        {% endif %}
-
-        <!-- Weather Map Image -->
-        <div class="weather-map">
-            <h3>Current Weather Map</h3>
-            <img src="{% static 'map.jpg' %}" alt="Current Weather Map">
-        </div>
-
-        <!-- Additional Weather Information -->
-        <div class="additional-info mt-4">
-            <h3>Additional Weather Information</h3>
-            <p>Stay informed with the latest updates on weather patterns and forecasts in your area.</p>
-            <p>Our dedicated meteorologists provide timely reports and alerts to keep you safe.</p>
-            <p>Check back frequently for updates on severe weather, including storms, hurricanes, and more.</p>
-        </div>
+    <!-- Map Section -->
+    <div class="map-section">
+        <h2>World Map</h2>
+        <p>Explore the world with our interactive map. Get real-time weather updates by clicking on the different regions.</p>
+        <div id="map"></div>
     </div>
 
     <!-- Footer Section -->
@@ -217,15 +215,28 @@
         </div>
         <div class="footer-details">
             <p>&copy; 2024 JER Weather | All Rights Reserved</p>
-            <p>About Us | Careers | Press | Blog | FAQs</p>
-            <p>Stay updated with the latest weather news and forecasts.</p>
         </div>
     </div>
+
+    <!-- Leaflet.js for map functionality -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([20.0, 0.0], 2);  // Starting position: center of the world
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Example marker (you can add markers for key cities)
+        var marker = L.marker([51.505, -0.09]).addTo(map)
+            .bindPopup('<b>Hello!</b><br>This is London.').openPopup();
+    </script>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>
